@@ -1,12 +1,18 @@
 import React from 'react';
-import './App.css';
+import { Typography } from '@material-ui/core';
+import { Navbar } from './components/Navbar';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Router from './Router';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-      </header>
-    </div>
+    <>
+      <Navbar />
+      <Router />
+      <ToastContainer />
+    </>
   );
 }
 

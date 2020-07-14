@@ -1,0 +1,20 @@
+import React, { FC } from 'react';
+import styled from 'styled-components';
+
+type Props = {
+  wide?: boolean;
+};
+
+const Layout: FC<Props> = ({ children, wide }) => {
+  return <LayoutWrap wide={wide}>{children}</LayoutWrap>;
+};
+
+const LayoutWrap = styled.main<Props>`
+  margin: 66px auto 0;
+  max-width: ${(p) => (p.wide ? '1900px' : '960px')};
+  width: 94%;
+  @media (min-width: 1000px) {
+    width: 100%;
+  }
+`;
+export { Layout };
