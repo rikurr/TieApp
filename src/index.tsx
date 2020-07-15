@@ -4,27 +4,20 @@ import App from './App';
 import { store } from './modules/store';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { ThemeProvider as MaterialThemeProvider } from '@material-ui/core/styles';
-import { ThemeProvider as StyledThemeProvider } from 'styled-components';
-import { theme } from './theme';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import * as serviceWorker from './serviceWorker';
 import { ErrorBoundary } from './components/UIKit/ErrorBoundary';
+import ThemeProviderWrap from './ThemeProvider';
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <MaterialThemeProvider theme={theme}>
-        <StyledThemeProvider theme={theme}>
-          <CssBaseline>
-            <Router>
-              <ErrorBoundary>
-                <App />
-              </ErrorBoundary>
-            </Router>
-          </CssBaseline>
-        </StyledThemeProvider>
-      </MaterialThemeProvider>
+      <ThemeProviderWrap>
+        <Router>
+          <ErrorBoundary>
+            <App />
+          </ErrorBoundary>
+        </Router>
+      </ThemeProviderWrap>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

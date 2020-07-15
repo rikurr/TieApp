@@ -12,24 +12,34 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@material-ui/core';
+import Switch from '@material-ui/core/Switch';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
-import AddIcon from '@material-ui/icons/Add';
-import Tooltip from '@material-ui/core/Tooltip';
-import Fab from '@material-ui/core/Fab';
 import { ArrowBack, AccountCircle, Home } from '@material-ui/icons';
 import SortIcon from '@material-ui/icons/Sort';
 import MenuIcon from '@material-ui/icons/Menu';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { selectTheme, toggleTheme } from '../../modules/themeSlice';
 
 type NavbarState = {
   right: boolean;
 };
 
-const Navbar = () => {
+function Navbar() {
   const history = useHistory();
   const location = useLocation();
   const dispatch = useDispatch();
+  const mode = useSelector(selectTheme);
+
+  const handleToggleTheme = () => {
+    if (mode === 'dark') {
+      localStorage.setItem('theme', 'light');
+      dispatch(toggleTheme(localStorage.getItem('theme')));
+    } else {
+      localStorage.setItem('theme', 'dark');
+      dispatch(toggleTheme(localStorage.getItem('theme')));
+    }
+  };
 
   const [path, setPath] = useState<string>('');
   const [state, setState] = useState<NavbarState>({
@@ -84,7 +94,7 @@ const Navbar = () => {
   return (
     <>
       <Box component='nav'>
-        <AppBar position='fixed'>
+        <CustomAppBar position='fixed'>
           <Toolbar style={{ maxWidth: 960, width: '100%', margin: '0 auto' }}>
             {path.replace('/', '') &&
             path !== 'create-habit' &&
@@ -96,11 +106,17 @@ const Navbar = () => {
             <Typography
               to='/'
               component={Link}
-              style={{ textDecoration: 'none', flexGrow: 1, color: '#fff' }}
+              style={{ textDecoration: 'none', flexGrow: 1, color: '#64ffda' }}
               variant='h1'
             >
-              Tie<span style={{ color: '#64ffda' }}>App</span>
+              TieApp
             </Typography>
+
+            <Switch
+              checked={mode === 'light' ? false : true}
+              onClick={handleToggleTheme}
+            />
+
             <IconButton onClick={toggleSlider('right', true)}>
               <MenuIcon />
             </IconButton>
@@ -112,15 +128,19 @@ const Navbar = () => {
               {sideList('right')}
             </MobilRightMenuSlider>
           </Toolbar>
-        </AppBar>
+        </CustomAppBar>
       </Box>
     </>
   );
-};
+}
 
 const SliderWrap = styled.div`
   width: 250px;
   height: 100%;
+`;
+
+const CustomAppBar = styled(AppBar)`
+  background: ${(p) => p.theme.palette.background.paper};
 `;
 
 export { Navbar };
