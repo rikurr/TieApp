@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
+import { MarginTop } from './MarginTop';
 
 type Props = {
   wide?: boolean;
@@ -10,11 +11,13 @@ const Layout: FC<Props> = ({ children, wide }) => {
 };
 
 const LayoutWrap = styled.main<Props>`
-  margin: 66px auto 0;
-  max-width: ${(p) => (p.wide ? '1900px' : '960px')};
-  width: 94%;
-  @media (min-width: 1000px) {
-    width: 100%;
+  margin: 0 auto;
+  margin-top: 66px;
+  padding-top: ${(p) => p.theme.spacing(6)}px;
+  max-width: 1200px;
+  width: 100%;
+  @media (max-width: 1000px) {
+    width: 94%;
   }
 `;
 export { Layout };

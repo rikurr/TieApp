@@ -10,25 +10,25 @@ import { selectTheme } from './modules/themeSlice';
 
 const ThemeProviderWrap: FC = ({ children }) => {
   const mode = useSelector(selectTheme);
-  console.log(mode);
   const theme = createMuiTheme({
+    spacing: 4,
     palette: {
       type: mode,
       primary: {
-        light: '#8c9eff',
-        main: '#536dfe',
-        dark: '#304ffe',
-        contrastText: '#333',
+        light: '#6effe8',
+        main: '#1de9b6',
+        dark: '#00b686',
+        contrastText: '#000',
       },
       secondary: {
-        light: '#a7ffeb',
-        main: '#1de9b6',
-        dark: '#00bfa5',
-        contrastText: '#333',
+        light: '#b47cff',
+        main: '#7c4dff',
+        dark: '#3f1dcb',
+        contrastText: '#fff',
       },
     },
     typography: {
-      fontFamily: ['Open Sans Condensed', 'Noto Sans', 'sans-serif'].join(','),
+      fontFamily: ['Noto Sans JP', 'Lato', 'sans-serif'].join(','),
       fontSize: 12,
       h1: {
         fontSize: '1.75rem',

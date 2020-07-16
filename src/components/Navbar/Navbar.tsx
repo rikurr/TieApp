@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import MobilRightMenuSlider from '@material-ui/core/Drawer';
 import {
   Box,
@@ -34,10 +34,10 @@ function Navbar() {
   const handleToggleTheme = () => {
     if (mode === 'dark') {
       localStorage.setItem('theme', 'light');
-      dispatch(toggleTheme(localStorage.getItem('theme')));
+      dispatch(toggleTheme(localStorage.getItem('theme') as 'light' | 'dark'));
     } else {
       localStorage.setItem('theme', 'dark');
-      dispatch(toggleTheme(localStorage.getItem('theme')));
+      dispatch(toggleTheme(localStorage.getItem('theme') as 'light' | 'dark'));
     }
   };
 
@@ -95,7 +95,7 @@ function Navbar() {
     <>
       <Box component='nav'>
         <CustomAppBar position='fixed'>
-          <Toolbar style={{ maxWidth: 960, width: '100%', margin: '0 auto' }}>
+          <CustomToobar>
             {path.replace('/', '') &&
             path !== 'create-habit' &&
             path !== 'homeguest' ? (
@@ -104,9 +104,7 @@ function Navbar() {
               </IconButton>
             ) : null}
             <Typography
-              to='/'
-              component={Link}
-              style={{ textDecoration: 'none', flexGrow: 1, color: '#64ffda' }}
+              style={{ flexGrow: 1 }}
               variant='h1'
             >
               TieApp
@@ -127,7 +125,7 @@ function Navbar() {
             >
               {sideList('right')}
             </MobilRightMenuSlider>
-          </Toolbar>
+          </CustomToobar>
         </CustomAppBar>
       </Box>
     </>
@@ -141,6 +139,16 @@ const SliderWrap = styled.div`
 
 const CustomAppBar = styled(AppBar)`
   background: ${(p) => p.theme.palette.background.paper};
+`;
+
+const CustomToobar = styled(Toolbar)`
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0;
+  @media (max-width: 1000px) {
+    width: 94%;
+  }
 `;
 
 export { Navbar };
