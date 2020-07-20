@@ -62,7 +62,7 @@ function Navbar() {
     setState({ ...state, [slider]: open });
   };
   const sideList = (slider: string) => (
-    <SliderWrap onClick={toggleSlider('slider', false)}>
+    <SliderWrap onClick={toggleSlider('right', false)}>
       <List>
         <ListItem onClick={() => history.push('/')} button>
           <ListItemIcon>
